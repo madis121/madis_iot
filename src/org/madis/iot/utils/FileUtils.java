@@ -8,7 +8,6 @@ import java.io.Writer;
 public class FileUtils {
 
 	public static void appendToFile(String fileName, String fileContent) {
-		System.out.println("Calling FileUtils.appendToFile()");
 		Writer fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 

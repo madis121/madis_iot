@@ -2,6 +2,8 @@ package org.madis.iot;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,8 @@ import org.madis.iot.utils.FileUtils;
 public class PostServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	private static final String FILE_DIR = "data.txt";
+	private ArrayList<String> collectedData = new ArrayList<>();
 
     public PostServlet() {
 
@@ -32,7 +36,7 @@ public class PostServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String filePath = "../" + getProjectPath(); 
+		// ArrayList<String> collectedData = new ArrayList<>();
 		BufferedReader reader = request.getReader();
 		
 		if (request != null) {
@@ -44,14 +48,12 @@ public class PostServlet extends HttpServlet {
 			}
 			
 			String data = stringBuilder.toString();
-			System.out.println("data: " + data);
-			// FileUtils.appendToFile(filePath, data);
-		    System.out.println(filePath);
+			collectedData.add(data);
+			System.out.println("Pushed: " + data);
+			System.out.println("Currently stored: " + Arrays.toString(collectedData.toArray()));
+			
+			FileUtils.appendToFile(FILE_DIR, data);
 		}
-	}
-	
-	private String getProjectPath() {
-		return getServletContext().getRealPath("/").replace("\\", "/");
 	}
 
 }
