@@ -1,4 +1,4 @@
-package org.madis.iot;
+package org.madis.iot.veebijuhtimisegaNutikodu;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,35 +11,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.madis.iot.utils.FileUtils;
+import org.madis.iot.utils.Utils;
 
 @WebServlet(
-		name="testServlet",
-		description="Servlet made for testing",
-		urlPatterns={"/testServlet"}
+		name="sensorServlet",
+		description="Servlet for posting sensor data",
+		urlPatterns={"/sensorServlet"}
 )
-public class PostServlet extends HttpServlet {
+public class SensorServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
 	private static final String FILE_DIR = "data.txt";
+	
 	private ArrayList<String> collectedData = new ArrayList<>();
 
-    public PostServlet() {
+    public SensorServlet() {
 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		PrintWriter writer = response.getWriter();
-//		writer.append("<html>Test servlet</html>");
-//		writer.flush();
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ArrayList<String> collectedData = new ArrayList<>();
-		BufferedReader reader = request.getReader();
-		
 		if (request != null) {
+			BufferedReader reader = request.getReader();
 			StringBuilder stringBuilder = new StringBuilder();
 			String line = null;
 			
@@ -47,12 +44,23 @@ public class PostServlet extends HttpServlet {
 				stringBuilder.append(line);
 			}
 			
-			String data = stringBuilder.toString();
-			collectedData.add(data);
-			System.out.println("Pushed: " + data);
-			System.out.println("Currently stored: " + Arrays.toString(collectedData.toArray()));
+			String dataReq = stringBuilder.toString();
+			String dataParam = request.getParameter("data");
+			String data = null;
 			
-			FileUtils.appendToFile(FILE_DIR, data);
+			if (dataReq != null && !dataReq.trim().equals("")) {
+				data = dataReq;
+			} else if (dataParam != null && !dataParam.trim().equals("")) {
+				data = dataParam;
+			}
+			
+			if (data != null) {
+				collectedData.add(data);
+				System.out.println("[sensorServlet] Pushed: " + data);
+				Utils.appendToFile(FILE_DIR, data);
+			}
+			
+			System.out.println("[sensorServlet] Currently stored: " + Arrays.toString(collectedData.toArray()));
 		}
 	}
 

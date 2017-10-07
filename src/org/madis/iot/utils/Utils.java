@@ -4,8 +4,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class FileUtils {
+public class Utils {
 
 	public static void appendToFile(String fileName, String fileContent) {
 		Writer fileWriter = null;
@@ -32,6 +35,25 @@ public class FileUtils {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static String getTimeFromDate(Date date) {
+		return new SimpleDateFormat("HH:mm:ss").format(date);
+	}
+	
+	public static Date getDate(int hours, int minutes, int seconds) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, hours);
+		calendar.set(Calendar.MINUTE, minutes);
+		calendar.set(Calendar.SECOND, seconds);
+		return calendar.getTime();
+	}
+	
+	public static Date getDate(int minutes, int seconds) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.MINUTE, minutes);
+		calendar.set(Calendar.SECOND, seconds);
+		return calendar.getTime();
 	}
 
 }
