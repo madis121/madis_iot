@@ -14,19 +14,19 @@
 			<!-- update / create -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
+			<!--
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/madis_iot_db" />
 			<property name="javax.persistence.jdbc.user" value="postgres" />
 			<property name="javax.persistence.jdbc.password" value="admin" />
 			<property name="hibernate.default_schema" value="iot" />
+			-->
 
-			<!--
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://postgresql:5432/madis_iot_db"/>
 			<property name="javax.persistence.jdbc.user" value="madis_iot"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
 			<property name="hibernate.default_schema" value="iot"/>
-			-->
 		</properties>
 	</persistence-unit>
 </persistence>

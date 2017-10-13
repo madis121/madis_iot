@@ -65,7 +65,7 @@ public class Utils {
 	}
 
 	public static DateTime getCurrentDateTime() {
-		return new DateTime().withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
+		return new DateTime(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -74,7 +74,7 @@ public class Utils {
 		Object object = gson.fromJson(input, clazz);
 		return object;
 	}
-	
+
 	public static String objectToJson(Object object) {
 		Gson gson = new GsonBuilder().registerTypeAdapter(DateTime.class, new JsonSerializer<DateTime>() {
 			@Override

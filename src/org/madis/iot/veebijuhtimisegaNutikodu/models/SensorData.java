@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 @Entity
 @Table(name = "MAAKODU_ILMAJAAM_DATA")
@@ -57,11 +58,11 @@ public class SensorData {
 	}
 
 	public DateTime getDateTime() {
-		return dateTime;
+		return dateTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public void setDateTime(DateTime dateTime) {
-		this.dateTime = dateTime;
+		this.dateTime = dateTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	@Override

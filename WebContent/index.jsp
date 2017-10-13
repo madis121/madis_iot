@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>index</title>
+<title>17:30 13.10.2017</title>
 </head>
 <body>
-	12:00 13.10.2017 build
+	<p>
+		<a href="nutikodu/interface.jsp">Veebijuhtimisega nutikodu</a>
+	</p>
 </body>
 </html>

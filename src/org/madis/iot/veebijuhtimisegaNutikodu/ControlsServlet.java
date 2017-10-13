@@ -31,7 +31,7 @@ public class ControlsServlet extends HttpServlet {
 		boolean lightSwitch = BaseService.isLightSwitch();
 
 		writer.write(Boolean.toString(heaterSwitch) + "," + Boolean.toString(lightSwitch));
-		System.out.println("[ControlsServlet] " + Utils.getCurrentTime() + " Heater status: " + heaterSwitch + ", light status: " + lightSwitch);
+		System.out.println(Utils.getCurrentTime() + "[ControlsServlet]   Heater status: " + heaterSwitch + ", light status: " + lightSwitch);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

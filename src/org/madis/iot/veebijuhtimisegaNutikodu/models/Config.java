@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 @Entity
 @Table(name = "MAAKODU_ILMAJAAM_CONFIG")
@@ -17,30 +18,30 @@ public class Config {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "heater_switch")
 	private Boolean heaterSwitch;
-	
+
 	@Column(name = "light_switch")
 	private Boolean lightSwitch;
-	
+
 	@Column(name = "start_time")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime startTime;
-	
+
 	@Column(name = "end_time")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime endTime;
-	
+
 	@Column(name = "temperature")
 	private Double temperature;
-	
+
 	@Column(name = "lighting")
 	private Double lighting;
-	
+
 	@Column(name = "updated")
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime updated;
@@ -82,19 +83,19 @@ public class Config {
 	}
 
 	public DateTime getStartTime() {
-		return startTime;
+		return startTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public void setStartTime(DateTime startTime) {
-		this.startTime = startTime;
+		this.startTime = startTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public DateTime getEndTime() {
-		return endTime;
+		return endTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public void setEndTime(DateTime endTime) {
-		this.endTime = endTime;
+		this.endTime = endTime.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public Double getTemperature() {
@@ -114,11 +115,11 @@ public class Config {
 	}
 
 	public DateTime getUpdated() {
-		return updated;
+		return updated.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	public void setUpdated(DateTime updated) {
-		this.updated = updated;
+		this.updated = updated.withZone(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI));
 	}
 
 	@Override

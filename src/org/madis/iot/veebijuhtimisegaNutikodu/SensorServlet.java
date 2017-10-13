@@ -45,7 +45,7 @@ public class SensorServlet extends HttpServlet {
 		sensorData.setLighting(lighting);
 		sensorData.setDateTime(Utils.getCurrentDateTime());
 		SensorDataService.insertSensorData(sensorData);
-		System.out.println("[SensorServlet] " + Utils.getCurrentTime() + " Temperature: " + temperature + ", lighting: " + lighting);
+		System.out.println(Utils.getCurrentTime() + "[SensorServlet]   Temperature: " + temperature + ", lighting: " + lighting);
 		
 		BaseService.setHeaterSwitch(Controls.processTemperatureData(config.getHeaterSwitch(), config.getTemperature(), temperature, config.getStartTime(), config.getEndTime()));
 		BaseService.setLightSwitch(Controls.processLightingData(config.getLightSwitch(), config.getLighting(), lighting, config.getStartTime(), config.getEndTime()));

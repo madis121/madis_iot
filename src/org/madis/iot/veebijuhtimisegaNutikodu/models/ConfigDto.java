@@ -1,6 +1,7 @@
 package org.madis.iot.veebijuhtimisegaNutikodu.models;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.madis.iot.utils.Utils;
 
 public class ConfigDto {
@@ -69,8 +70,10 @@ public class ConfigDto {
 	public DateTime getStartDate() {
 		if (Utils.matches(timeRegex, startTime)) {
 			String[] hoursMinutes = startTime.split(":");
-			DateTime dateTime = new DateTime().withHourOfDay(Integer.parseInt(hoursMinutes[0]))
+			DateTime dateTime = new DateTime(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI))
+					.withHourOfDay(Integer.parseInt(hoursMinutes[0]))
 					.withMinuteOfHour(Integer.parseInt(hoursMinutes[1])).withSecondOfMinute(0);
+
 			return dateTime;
 		}
 		return null;
@@ -79,8 +82,10 @@ public class ConfigDto {
 	public DateTime getEndDate() {
 		if (Utils.matches(timeRegex, endTime)) {
 			String[] hoursMinutes = endTime.split(":");
-			DateTime dateTime = new DateTime().withHourOfDay(Integer.parseInt(hoursMinutes[0]))
+			DateTime dateTime = new DateTime(DateTimeZone.forID(Constants.TIMEZONE_HELSINKI))
+					.withHourOfDay(Integer.parseInt(hoursMinutes[0]))
 					.withMinuteOfHour(Integer.parseInt(hoursMinutes[1])).withSecondOfMinute(0);
+
 			return dateTime;
 		}
 		return null;
