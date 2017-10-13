@@ -1,7 +1,6 @@
 package org.madis.iot.veebijuhtimisegaNutikodu;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import org.madis.iot.veebijuhtimisegaNutikodu.service.BaseService;
 @WebServlet(
 		name="configServlet",
 		description="Servlet for posting config",
-		urlPatterns={"/configServlet"}
+		urlPatterns={"/nutikodu/configServlet"}
 )
 public class ConfigServlet extends HttpServlet {
 	
@@ -32,25 +31,23 @@ public class ConfigServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request != null) {
-			String data = Utils.readRequest(request);
-			ConfigDto confDto = (ConfigDto) Utils.consumeJson(data, ConfigDto.class);
-			Config config = BaseService.getMainConfig();
-			
-			if (config.getName() == null || !config.getName().equals("main")) {
-				config.setName(new String("main"));
-			}
-			config.setHeaterSwitch(confDto.getHeaterSwitch());
-			config.setLightSwitch(confDto.getLightSwitch());
-			config.setStartTime(confDto.getStartDate());
-			config.setEndTime(confDto.getEndDate());
-			config.setTemperature(confDto.getTemperatureInt());
-			config.setLighting(confDto.getLightingInt());
-			config.setUpdated(new Date());
-			BaseService.updateConfig(config);
-			
-			System.out.println("[ConfigServlet] " + Utils.getCurrentTime() + " Updated config: " + config.toString());
+		String data = Utils.readRequest(request);
+		ConfigDto confDto = (ConfigDto) Utils.consumeJson(data, ConfigDto.class);
+		Config config = BaseService.getConfig();
+		
+		if (config.getName() == null || !config.getName().equals("main")) {
+			config.setName(new String("main"));
 		}
+		config.setHeaterSwitch(confDto.getHeaterSwitch());
+		config.setLightSwitch(confDto.getLightSwitch());
+		config.setStartTime(confDto.getStartDate());
+		config.setEndTime(confDto.getEndDate());
+		config.setTemperature(confDto.getTemperatureInt());
+		config.setLighting(confDto.getLightingInt());
+		config.setUpdated(Utils.getCurrentDateTime());
+		BaseService.updateDbConfig(config);
+		
+		System.out.println("[ConfigServlet] " + Utils.getCurrentTime() + " Updated config: " + config.toString());
 	}
 
 }

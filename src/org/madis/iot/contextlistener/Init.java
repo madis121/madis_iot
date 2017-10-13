@@ -10,13 +10,14 @@ import org.madis.iot.veebijuhtimisegaNutikodu.service.BaseService;
 @WebListener
 public class Init implements ServletContextListener {
 
-	Config config = BaseService.getMainConfig();
-	
 	@Override
 	public void contextInitialized(ServletContextEvent e) {
-		Config dbConfig = BaseService.getConfig();
+		Config config = BaseService.getConfig();
+		Config dbConfig = BaseService.getDbConfig();
 		
 		if (dbConfig != null) {
+			config.setId(dbConfig.getId());
+			config.setName(dbConfig.getName());
 			config.setHeaterSwitch(dbConfig.getHeaterSwitch());
 			config.setLightSwitch(dbConfig.getLightSwitch());
 			config.setStartTime(dbConfig.getStartTime());

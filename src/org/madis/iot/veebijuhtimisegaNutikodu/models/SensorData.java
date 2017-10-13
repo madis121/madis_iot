@@ -1,7 +1,5 @@
 package org.madis.iot.veebijuhtimisegaNutikodu.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,19 +7,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity
 @Table(name = "MAAKODU_ILMAJAAM_DATA")
 public class SensorData {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	@Column(name = "TEMPERATURE")
 	private Double temperature;
+	
 	@Column(name = "LIGHTING")
 	private Double lighting;
+	
 	@Column(name = "DATETIME")
-	private Date dateTime;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateTime;
 
 	public SensorData() {
 
@@ -51,11 +56,11 @@ public class SensorData {
 		this.lighting = lighting;
 	}
 
-	public Date getDateTime() {
+	public DateTime getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(Date dateTime) {
+	public void setDateTime(DateTime dateTime) {
 		this.dateTime = dateTime;
 	}
 

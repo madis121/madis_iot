@@ -1,7 +1,6 @@
 package org.madis.iot.veebijuhtimisegaNutikodu.models;
 
-import java.util.Date;
-
+import org.joda.time.DateTime;
 import org.madis.iot.utils.Utils;
 
 public class ConfigDto {
@@ -12,9 +11,9 @@ public class ConfigDto {
 	private String endTime;
 	private String temperature;
 	private String lighting;
-	
+
 	private String timeRegex = "^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
-	
+
 	public ConfigDto() {
 
 	}
@@ -66,30 +65,34 @@ public class ConfigDto {
 	public void setLighting(String lighting) {
 		this.lighting = lighting;
 	}
-	
-	public Date getStartDate() {
+
+	public DateTime getStartDate() {
 		if (Utils.matches(timeRegex, startTime)) {
 			String[] hoursMinutes = startTime.split(":");
-			return Utils.getDateTime(Integer.parseInt(hoursMinutes[0]), Integer.parseInt(hoursMinutes[1]));
+			DateTime dateTime = new DateTime().withHourOfDay(Integer.parseInt(hoursMinutes[0]))
+					.withMinuteOfHour(Integer.parseInt(hoursMinutes[1])).withSecondOfMinute(0);
+			return dateTime;
 		}
 		return null;
 	}
-	
-	public Date getEndDate() {
+
+	public DateTime getEndDate() {
 		if (Utils.matches(timeRegex, endTime)) {
 			String[] hoursMinutes = endTime.split(":");
-			return Utils.getDateTime(Integer.parseInt(hoursMinutes[0]), Integer.parseInt(hoursMinutes[1]));
+			DateTime dateTime = new DateTime().withHourOfDay(Integer.parseInt(hoursMinutes[0]))
+					.withMinuteOfHour(Integer.parseInt(hoursMinutes[1])).withSecondOfMinute(0);
+			return dateTime;
 		}
 		return null;
 	}
-	
+
 	public Double getTemperatureInt() {
 		if (temperature != null && !temperature.equals("")) {
 			return Double.parseDouble(temperature);
 		}
 		return null;
 	}
-	
+
 	public Double getLightingInt() {
 		if (lighting != null && !lighting.equals("")) {
 			return Double.parseDouble(lighting);
@@ -100,7 +103,8 @@ public class ConfigDto {
 	@Override
 	public String toString() {
 		return "Config [heaterSwitch=" + heaterSwitch + ", lightSwitch=" + lightSwitch + ", startTime=" + getStartDate()
-				+ ", endTime=" + getEndDate() + ", temperature=" + getTemperatureInt() + ", lighting=" + getLightingInt() + "]";
+				+ ", endTime=" + getEndDate() + ", temperature=" + getTemperatureInt() + ", lighting="
+				+ getLightingInt() + "]";
 	}
-	
+
 }

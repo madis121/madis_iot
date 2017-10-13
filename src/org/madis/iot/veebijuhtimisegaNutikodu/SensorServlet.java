@@ -1,7 +1,6 @@
 package org.madis.iot.veebijuhtimisegaNutikodu;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import org.madis.iot.veebijuhtimisegaNutikodu.service.SensorDataService;
 @WebServlet(
 		name="sensorServlet",
 		description="Servlet for posting sensor data",
-		urlPatterns={"/sensorServlet"}
+		urlPatterns={"/nutikodu/sensorServlet"}
 )
 public class SensorServlet extends HttpServlet {
 	
@@ -32,26 +31,24 @@ public class SensorServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request != null) {
-			Config config = BaseService.getConfig();
-			HashMap<String, Double> dataMap = Utils.readSensorRequest(request);
-			Double temperature = dataMap.get(Constants.TEMPERATURE);
-			Double lighting = dataMap.get(Constants.LIGHTING);
-			
-			SensorData sensorData = new SensorData();
-			sensorData.setTemperature(temperature);
-			sensorData.setLighting(lighting);
-			sensorData.setDateTime(new Date());
-			SensorDataService.insertSensorData(sensorData);
-			System.out.println("[SensorServlet] " + Utils.getCurrentTime() + " Temperature: " + temperature + ", lighting: " + lighting);
-			
-			BaseService.setHeaterSwitch(Controls.processTemperatureData(config.getHeaterSwitch(), config.getTemperature(), temperature, config.getStartTime(), config.getEndTime()));
-			BaseService.setLightSwitch(Controls.processLightingData(config.getLightSwitch(), config.getLighting(), lighting, config.getStartTime(), config.getEndTime()));
-		}
+		Config config = BaseService.getConfig();
+		HashMap<String, Double> dataMap = Utils.readSensorRequest(request);
+		Double temperature = dataMap.get(Constants.TEMPERATURE);
+		Double lighting = dataMap.get(Constants.LIGHTING);
+		
+		SensorData sensorData = new SensorData();
+		sensorData.setTemperature(temperature);
+		sensorData.setLighting(lighting);
+		sensorData.setDateTime(Utils.getCurrentDateTime());
+		SensorDataService.insertSensorData(sensorData);
+		System.out.println("[SensorServlet] " + Utils.getCurrentTime() + " Temperature: " + temperature + ", lighting: " + lighting);
+		
+		BaseService.setHeaterSwitch(Controls.processTemperatureData(config.getHeaterSwitch(), config.getTemperature(), temperature, config.getStartTime(), config.getEndTime()));
+		BaseService.setLightSwitch(Controls.processLightingData(config.getLightSwitch(), config.getLighting(), lighting, config.getStartTime(), config.getEndTime()));
 	}
 
 }

@@ -14,47 +14,43 @@ public class BaseService {
 	private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 	private static EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-	private static Config mainConfig = new Config();
+	private static Config config = new Config();
 	private static boolean heaterSwitch = false;
 	private static boolean lightSwitch = false;
 
-	public static Config getConfig() {
+	public static Config getDbConfig() {
 		try {
-			Config config = (Config) getEntityManager().createQuery("FROM Config C WHERE C.name = :configName")
+			Config c = (Config) getEntityManager().createQuery("FROM Config C WHERE C.name = :configName")
 					.setParameter("configName", "main").getSingleResult();
-			return config;
+			return c;
 		} catch (NoResultException e) {
 		}
 		return null;
 	}
 
-	public static void updateConfig(Config config) {
-		if (config != null) {
-			Config configRef = getConfig();
+	public static void updateDbConfig(Config c) {
+		if (c != null) {
 			Config dbConfig = null;
 
-			if (configRef != null) {
-				dbConfig = getEntityManager().find(Config.class, getConfig().getId());
-			}
-
-			if (dbConfig != null) {
+			if (getDbConfig() != null) {
+				dbConfig = getEntityManager().find(Config.class, getDbConfig().getId());
 				getEntityManager().getTransaction().begin();
-				dbConfig.setHeaterSwitch(config.getHeaterSwitch());
-				dbConfig.setLightSwitch(config.getLightSwitch());
-				dbConfig.setStartTime(config.getStartTime());
-				dbConfig.setEndTime(config.getEndTime());
-				dbConfig.setTemperature(config.getTemperature());
-				dbConfig.setLighting(config.getLighting());
-				dbConfig.setUpdated(config.getUpdated());
+				dbConfig.setHeaterSwitch(c.getHeaterSwitch());
+				dbConfig.setLightSwitch(c.getLightSwitch());
+				dbConfig.setStartTime(c.getStartTime());
+				dbConfig.setEndTime(c.getEndTime());
+				dbConfig.setTemperature(c.getTemperature());
+				dbConfig.setLighting(c.getLighting());
+				dbConfig.setUpdated(c.getUpdated());
 				getEntityManager().getTransaction().commit();
 			} else {
 				getEntityManager().getTransaction().begin();
-				getEntityManager().persist(config);
+				getEntityManager().persist(c);
 				getEntityManager().getTransaction().commit();
 			}
 		}
 	}
-	
+
 	public static EntityManagerFactory getEntityManagerFactory() {
 		return entityManagerFactory;
 	}
@@ -63,12 +59,8 @@ public class BaseService {
 		return entityManager;
 	}
 
-	public static Config getMainConfig() {
-		return mainConfig;
-	}
-
-	public static void setMainConfig(Config mainConfig) {
-		BaseService.mainConfig = mainConfig;
+	public static Config getConfig() {
+		return config;
 	}
 
 	public static boolean isHeaterSwitch() {

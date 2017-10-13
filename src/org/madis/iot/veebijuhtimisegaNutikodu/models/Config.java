@@ -1,7 +1,5 @@
 package org.madis.iot.veebijuhtimisegaNutikodu.models;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,29 +7,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 @Entity
 @Table(name = "MAAKODU_ILMAJAAM_CONFIG")
 public class Config {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "NAME")
+	
+	@Column(name = "name")
 	private String name;
-	@Column(name = "HEATER_SWITCH")
+	
+	@Column(name = "heater_switch")
 	private Boolean heaterSwitch;
-	@Column(name = "LIGHT_SWITCH")
+	
+	@Column(name = "light_switch")
 	private Boolean lightSwitch;
-	@Column(name = "START_TIME")
-	private Date startTime;
-	@Column(name = "END_TIME")
-	private Date endTime;
-	@Column(name = "TEMPERATURE")
+	
+	@Column(name = "start_time")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime startTime;
+	
+	@Column(name = "end_time")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime endTime;
+	
+	@Column(name = "temperature")
 	private Double temperature;
-	@Column(name = "LIGHTING")
+	
+	@Column(name = "lighting")
 	private Double lighting;
-	@Column(name = "UPDATED")
-	private Date updated;
+	
+	@Column(name = "updated")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime updated;
 
 	public Config() {
 
@@ -69,19 +81,19 @@ public class Config {
 		this.lightSwitch = lightSwitch;
 	}
 
-	public Date getStartTime() {
+	public DateTime getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Date startTime) {
+	public void setStartTime(DateTime startTime) {
 		this.startTime = startTime;
 	}
 
-	public Date getEndTime() {
+	public DateTime getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(DateTime endTime) {
 		this.endTime = endTime;
 	}
 
@@ -101,11 +113,11 @@ public class Config {
 		this.lighting = lighting;
 	}
 
-	public Date getUpdated() {
+	public DateTime getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(DateTime updated) {
 		this.updated = updated;
 	}
 
