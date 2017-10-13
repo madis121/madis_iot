@@ -8,7 +8,7 @@
 * Peaks postitama kujul - temperature={$tempVar}&lighting=${lightVar}, nt. käsitsi läbi brauseri saab proovida http://tomcat-madisuibo.193b.starter-ca-central-1.openshiftapps.com/nutikodu/sensorServlet?temperature=15&lighting=92
 
 * Arduino saab lugeda küttekeha ja valguse lülitite andmeid siit - http://tomcat-madisuibo.193b.starter-ca-central-1.openshiftapps.com/nutikodu/controlsServlet
-* Lehel on kaks booleani, esimene on küttekeha lüliti, teine valguse lüliti (true - lülitab sisse, false - lülitab välja)
+* Lehel on kaks booleani, esimene on küttekeha lüliti, teine valgusti lüliti (true - lülitab sisse, false - lülitab välja)
 
 
 
