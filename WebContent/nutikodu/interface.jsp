@@ -72,6 +72,7 @@
 			return data;
 		}
 		
+		// get config data from db
 		var fetchConfig = $.get("configDataServlet", function(data) {
 			var json = JSON.parse(data);
 			console.log(json);
@@ -90,13 +91,19 @@
 			
 			if (json.startTime) {
 				var dt = new Date(json.startTime);
-				var time = dt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+				var time = dt.toLocaleTimeString(
+					[], 
+					{timezone: 'Europe/Helsinki', hour: '2-digit', minute:'2-digit', hour12: false}
+				);
 				$('#startTime').val(time);
 			}
 			
 			if (json.endTime) {
 				var dt = new Date(json.endTime);
-				var time = dt.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false});
+				var time = dt.toLocaleTimeString(
+					[], 
+					{timezone: 'Europe/Helsinki', hour: '2-digit', minute:'2-digit', hour12: false}
+				);
 				$('#endTime').val(time);
 			}
 			
@@ -121,7 +128,10 @@
 				  if (value.dateTime) {
 					  var dt = new Date(value.dateTime);
 					  var date = dt.toLocaleDateString();
-					  var time = dt.toLocaleTimeString([], {hour12: false});
+					  var time = dt.toLocaleTimeString(
+						  [], 
+						  {timezone: 'Europe/Helsinki', hour12: false}
+					  );
 					  timestampArray.push(dt.getDate() + "/" + dt.getMonth() + "/" + dt.getFullYear() + " " + time);
 				  }
 			  });
