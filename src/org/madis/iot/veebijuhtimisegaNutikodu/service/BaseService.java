@@ -16,7 +16,8 @@ public class BaseService {
 
 	private static Config config = new Config();
 	private static boolean heaterSwitch = false;
-	private static boolean lightSwitch = false;
+	private static boolean automaticLightSwitch = false;
+	private static boolean manualLightSwitch = false;
 
 	public static Config getDbConfig() {
 		try {
@@ -71,12 +72,20 @@ public class BaseService {
 		BaseService.heaterSwitch = heaterSwitch;
 	}
 
-	public static boolean isLightSwitch() {
-		return lightSwitch;
+	public static boolean isAutomaticLightSwitch() {
+		return automaticLightSwitch;
 	}
 
-	public static void setLightSwitch(boolean lightSwitch) {
-		BaseService.lightSwitch = lightSwitch;
+	public static void setAutomaticLightSwitch(boolean lightSwitch) {
+		BaseService.automaticLightSwitch = lightSwitch;
+	}
+
+	public static boolean isManualLightSwitch() {
+		return manualLightSwitch;
+	}
+
+	public static void setManualLightSwitch(boolean manualLightSwitch) {
+		BaseService.manualLightSwitch = manualLightSwitch;
 	}
 
 }
