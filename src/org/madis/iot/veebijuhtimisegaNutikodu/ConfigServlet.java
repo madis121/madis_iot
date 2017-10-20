@@ -47,7 +47,7 @@ public class ConfigServlet extends HttpServlet {
 		config.setUpdated(Utils.getCurrentDateTime());
 		BaseService.updateDbConfig(config);
 		
-		System.out.println(Utils.getCurrentTime() + "[ConfigServlet]   Updated config: " + config.toString());
+		System.out.println(Utils.getCurrentTime() + " [ConfigServlet]   Updated config: " + config.toString());
 	}
 
 }

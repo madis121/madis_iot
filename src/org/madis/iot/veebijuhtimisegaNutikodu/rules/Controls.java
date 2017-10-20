@@ -21,8 +21,8 @@ public class Controls {
 		return false;
 	}
 
-	public static boolean processLightingData(Double lightingCheck, Double currentLighting,
-			DateTime startTime, DateTime endTime) {
+	public static boolean processLightingData(Double lightingCheck, Double currentLighting, DateTime startTime,
+			DateTime endTime) {
 		DateTime dateTime = Utils.getCurrentDateTime();
 
 		if (startTime != null && endTime != null) {

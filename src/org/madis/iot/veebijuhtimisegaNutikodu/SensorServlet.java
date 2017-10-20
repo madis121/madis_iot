@@ -45,11 +45,11 @@ public class SensorServlet extends HttpServlet {
 		sensorData.setLighting(lighting);
 		sensorData.setDateTime(Utils.getCurrentDateTime());
 		SensorDataService.insertSensorData(sensorData);
-		System.out.println(Utils.getCurrentTime() + "[SensorServlet]   Temperature: " + temperature + ", lighting: " + lighting);
+		System.out.println(Utils.getCurrentTime() + " [SensorServlet]   Temperature: " + temperature + ", lighting: " + lighting);
 		
 		BaseService.setHeaterSwitch(Controls.processTemperatureData(config.getHeaterSwitch(), config.getTemperature(), temperature, config.getStartTime(), config.getEndTime()));
 		BaseService.setAutomaticLightSwitch(Controls.processLightingData(config.getLighting(), lighting, config.getStartTime(), config.getEndTime()));
-		BaseService.setManualLightSwitch(config.getLightSwitch());
+		BaseService.setManualLightSwitch(Controls.processLightingData(config.getLightSwitch()));
 	}
 
 }

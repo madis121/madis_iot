@@ -28,13 +28,15 @@ public class ControlsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter writer = response.getWriter();
 		boolean heaterSwitch = BaseService.isHeaterSwitch();
-		boolean lightSwitch = BaseService.isAutomaticLightSwitch();
+		boolean automaticLightSwitch = BaseService.isAutomaticLightSwitch();
+		boolean manualLightSwitch = BaseService.isManualLightSwitch();
 
-		writer.write(Boolean.toString(heaterSwitch) + "," + Boolean.toString(lightSwitch));
-		System.out.println(Utils.getCurrentTime() + "[ControlsServlet]   Heater status: " + heaterSwitch + ", light status: " + lightSwitch);
+		writer.write(Boolean.toString(heaterSwitch) + "," + Boolean.toString(automaticLightSwitch) + "," + Boolean.toString(manualLightSwitch));
+		System.out.println(Utils.getCurrentTime() + " [ControlsServlet]   Heater status: " + heaterSwitch + ", automatic led status: " + automaticLightSwitch + ", manual led status: " + manualLightSwitch);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 	}
 
