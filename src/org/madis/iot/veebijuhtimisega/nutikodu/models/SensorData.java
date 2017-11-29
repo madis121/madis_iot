@@ -1,4 +1,4 @@
-package org.madis.iot.veebijuhtimisegaNutikodu.models;
+package org.madis.iot.veebijuhtimisega.nutikodu.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

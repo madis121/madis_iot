@@ -1,4 +1,4 @@
-package org.madis.iot.veebijuhtimisegaNutikodu.models;
+package org.madis.iot.veebijuhtimisega.nutikodu.models;
 
 public class Constants {
 

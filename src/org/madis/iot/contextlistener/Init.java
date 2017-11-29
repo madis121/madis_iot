@@ -4,8 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.madis.iot.veebijuhtimisegaNutikodu.models.Config;
-import org.madis.iot.veebijuhtimisegaNutikodu.service.BaseService;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Config;
+import org.madis.iot.veebijuhtimisega.nutikodu.service.BaseService;
 
 @WebListener
 public class Init implements ServletContextListener {

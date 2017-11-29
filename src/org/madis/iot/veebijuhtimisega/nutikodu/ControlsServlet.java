@@ -1,4 +1,4 @@
-package org.madis.iot.veebijuhtimisegaNutikodu;
+package org.madis.iot.veebijuhtimisega.nutikodu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.madis.iot.utils.Utils;
-import org.madis.iot.veebijuhtimisegaNutikodu.service.BaseService;
+import org.madis.iot.veebijuhtimisega.nutikodu.service.BaseService;
 
 @WebServlet(
 		name="controlsServlet",

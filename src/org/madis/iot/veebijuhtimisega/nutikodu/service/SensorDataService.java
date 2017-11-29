@@ -1,8 +1,8 @@
-package org.madis.iot.veebijuhtimisegaNutikodu.service;
+package org.madis.iot.veebijuhtimisega.nutikodu.service;
 
 import java.util.List;
 
-import org.madis.iot.veebijuhtimisegaNutikodu.models.SensorData;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.SensorData;
 
 public class SensorDataService extends BaseService {
 

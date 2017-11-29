@@ -1,9 +1,7 @@
-package org.madis.iot.veebijuhtimisegaNutikodu;
+package org.madis.iot.veebijuhtimisega.nutikodu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,28 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.madis.iot.utils.Utils;
-import org.madis.iot.veebijuhtimisegaNutikodu.models.SensorData;
-import org.madis.iot.veebijuhtimisegaNutikodu.service.SensorDataService;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Config;
+import org.madis.iot.veebijuhtimisega.nutikodu.service.BaseService;
 
 @WebServlet(
-		name="sensorDataServlet",
-		description="Servlet for getting existing sensor data",
-		urlPatterns={"/nutikodu/sensorDataServlet"}
+		name="configDataServlet",
+		description="Servlet for getting existing config data",
+		urlPatterns={"/nutikodu/configDataServlet"}
 )
-public class SensorDataServlet extends HttpServlet {
+public class ConfigDataServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
-    public SensorDataServlet() {
+    public ConfigDataServlet() {
 
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter writer = response.getWriter();
-		List<SensorData> sensorData = SensorDataService.getSensorData();
-		ArrayList<Object> list = new ArrayList<>(sensorData);
-		String json = Utils.listToJsonArray(list, "sensorData");
-		writer.write(json);
+		Config config = BaseService.getConfig();
+		writer.write(Utils.objectToJson(config));
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

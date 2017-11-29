@@ -1,4 +1,4 @@
-package org.madis.iot.veebijuhtimisegaNutikodu;
+package org.madis.iot.veebijuhtimisega.nutikodu;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.madis.iot.utils.Utils;
-import org.madis.iot.veebijuhtimisegaNutikodu.models.Config;
-import org.madis.iot.veebijuhtimisegaNutikodu.models.Constants;
-import org.madis.iot.veebijuhtimisegaNutikodu.models.SensorData;
-import org.madis.iot.veebijuhtimisegaNutikodu.rules.Controls;
-import org.madis.iot.veebijuhtimisegaNutikodu.service.BaseService;
-import org.madis.iot.veebijuhtimisegaNutikodu.service.SensorDataService;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Config;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Constants;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.SensorData;
+import org.madis.iot.veebijuhtimisega.nutikodu.rules.Controls;
+import org.madis.iot.veebijuhtimisega.nutikodu.service.BaseService;
+import org.madis.iot.veebijuhtimisega.nutikodu.service.SensorDataService;
 
 @WebServlet(
 		name="sensorServlet",

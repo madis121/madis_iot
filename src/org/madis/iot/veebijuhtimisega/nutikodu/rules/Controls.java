@@ -1,4 +1,4 @@
-package org.madis.iot.veebijuhtimisegaNutikodu.rules;
+package org.madis.iot.veebijuhtimisega.nutikodu.rules;
 
 import org.joda.time.DateTime;
 import org.madis.iot.utils.Utils;

@@ -1,11 +1,11 @@
-package org.madis.iot.veebijuhtimisegaNutikodu.service;
+package org.madis.iot.veebijuhtimisega.nutikodu.service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
-import org.madis.iot.veebijuhtimisegaNutikodu.models.Config;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Config;
 
 public class BaseService {
 

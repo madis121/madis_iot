@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.ISODateTimeFormat;
-import org.madis.iot.veebijuhtimisegaNutikodu.models.Constants;
+import org.madis.iot.veebijuhtimisega.nutikodu.models.Constants;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

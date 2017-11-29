@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>17:30 13.10.2017</title>
+<title>20:30 29.11.2017</title>
 </head>
 <body>
 	<p>
 		<a href="nutikodu/interface.jsp">Veebijuhtimisega nutikodu</a>
+	</p>
+	<p>
+		<a href="veebiraamistikud/liides.html">Veebiraamistikud kodune töö</a>
 	</p>
 </body>
 </html>

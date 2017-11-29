@@ -1,0 +1,129 @@
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+	integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+	crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+	integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+	crossorigin="">
+	</script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+</head>
+
+<body>
+	<h1>Kaart</h1>
+	<div id="map" style="height: 70%;"></div>
+
+	<script>
+		var map = L.map('map', {
+			center: [59.436962, 24.753574],
+			zoom: 12,
+			doubleClickZoom: false
+		});
+		
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+	
+		// get markers from server
+		$.get("markerDataServlet", function(data) {
+			var json = JSON.parse(data);
+			console.log(json);
+			
+			for (var i = 0; i < json.markers.length; i++) {
+				var latLng = L.latLng(parseFloat(json.markers[i].latitude), parseFloat(json.markers[i].longitude));
+				addMarker(latLng);
+			}
+		});
+	
+		// posting data to server
+		function httpPost(fn, value) {
+			$.ajax({
+				url : 'markersServlet',
+				type : 'POST',
+				data : fn + "," + value,
+				success : function() {
+				}
+			});
+		}
+		
+		// double clicking adds markers
+		map.on('dblclick', onMapDblClick);
+
+		function onMapDblClick(e) {
+			console.log(e);
+		    var geojsonFeature = {
+		        "type": "Feature",
+		        "properties": {},
+		        "geometry": {
+		                "type": "Point",
+		                "coordinates": [e.latlng.lat, e.latlng.lng]
+		        }
+		    }
+
+		    var marker;
+
+		    L.geoJson(geojsonFeature, {
+		        pointToLayer: function(feature, latlng){
+		            marker = L.marker(e.latlng, {
+		                title: "Resource Location",
+		                alt: "Resource Location",
+		                riseOnHover: true,
+		                draggable: false,
+		            }).bindPopup("<h2>This marker's location is:</h2><p><strong>Latitude: " 
+		            		+ e.latlng.lat + "<br><strong>Longitude: </strong>" + e.latlng.lng 
+		            		+ "</p><p><input type='button' value='Delete this marker' class='marker-delete-button'/></p>");
+		            
+		            marker.on("popupopen", onPopupOpen);
+		            return marker;
+		        }
+		    }).addTo(map);
+		    
+		    // send marker to server
+		    httpPost('insert', e.latlng.lat + ',' + e.latlng.lng);
+		}
+		
+		// seperate function to add markers by latlng
+		function addMarker(latLng) {
+    		var geojsonFeature = {
+		        "type": "Feature",
+		        "properties": {},
+		        "geometry": {
+		                "type": "Point",
+		                "coordinates": [latLng.lat, latLng.lng]
+		        }
+		    }
+
+		    var marker;
+
+		    L.geoJson(geojsonFeature, {
+		        pointToLayer: function(feature, latlng){
+		            marker = L.marker(latLng, {
+		                title: "Resource Location",
+		                alt: "Resource Location",
+		                riseOnHover: true,
+		                draggable: false,
+		            }).bindPopup("<h2>This marker's location is:</h2><p><strong>Latitude: " 
+		            		+ latLng.lat + "<br><strong>Longitude: </strong>" + latLng.lng 
+		            		+ "</p><p><input type='button' value='Delete this marker' class='marker-delete-button'/></p>");
+		            
+		            marker.on("popupopen", onPopupOpen);
+		            return marker;
+		        }
+		    }).addTo(map);
+		}
+		
+		// delete marker
+		function onPopupOpen() {
+		    var tempMarker = this;
+
+		    $(".marker-delete-button:visible").click(function() {
+		        map.removeLayer(tempMarker);
+		    });
+		    
+		    httpPost('delete', tempMarker._latlng.lat + "," + tempMarker._latlng.lng)
+		}
+	</script>
+</body>
+</html>
