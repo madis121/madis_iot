@@ -1,0 +1,59 @@
+######
+The following service(s) have been created in your project: postgresql.
+
+       Username: madis_iot
+       Password: password
+  Database Name: madis_iot_db
+ Connection URL: postgresql://postgresql:5432/
+
+For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.
+######
+
+
+
+
+oc login https://api.starter-ca-central-1.openshift.com --token=VcMHIG08VPoqVjijVtzBimA4Lv5FCE5g4EfPPBzDJ9E
+
+oc get pods
+
+oc rsh postgresql-2-9vgj0
+
+psql -d $POSTGRESQL_DATABASE -U $POSTGRESQL_USER
+
+select nspname from pg_catalog.pg_namespace;
+
+create schema iot;
+
+SELECT * FROM information_schema.tables WHERE table_schema = 'iot';
+
+DROP TABLE iot.maakodu_ilmajaam_config CASCADE;
+DROP TABLE iot.maakodu_ilmajaam_data CASCADE;
+
+CREATE TABLE iot.maakodu_ilmajaam_config
+(
+  id serial NOT NULL,
+  end_time timestamp without time zone,
+  heater_switch boolean,
+  light_switch boolean,
+  lighting double precision,
+  name character varying(255),
+  start_time timestamp without time zone,
+  temperature double precision,
+  updated timestamp without time zone,
+  CONSTRAINT maakodu_ilmajaam_config_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE iot.maakodu_ilmajaam_data
+(
+  id serial NOT NULL,
+  datetime timestamp without time zone,
+  lighting double precision,
+  temperature double precision,
+  CONSTRAINT maakodu_ilmajaam_data_pkey PRIMARY KEY (id)
+);
+
+SELECT * FROM iot.maakodu_ilmajaam_config;
+
+SELECT * FROM iot.maakodu_ilmajaam_data;
+
+DELETE FROM iot.maakodu_ilmajaam_data WHERE id >= 0;
